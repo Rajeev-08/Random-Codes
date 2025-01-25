@@ -1,2 +1,2 @@
 # Random-codes
-This repository contains code solutions for a variety of problems.
+This repository contains solutions for a variety of problems.
