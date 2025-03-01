@@ -1,59 +1,53 @@
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.util.Scanner;
+import java.io.*;
+import java.net.*;
 
-public class Client {
-    public static void main(String[] args) throws IOException {
-        DatagramSocket ds = new DatagramSocket(1235); // Different port from the server
-        InetAddress ip = InetAddress.getLocalHost();
+public class Client extends Thread {
+    Thread t1, t2;
+    DatagramSocket client;
+    DatagramPacket dp;
+    BufferedReader br;
+    byte[] send = new byte[1024];
+    byte[] rec = new byte[1024];
+    InetAddress ip;
+    String str, a;
 
-        System.out.println("Client is running...");
+    Client() {
+        try {
+            client = new DatagramSocket();
+            ip = InetAddress.getLocalHost();
+            br = new BufferedReader(new InputStreamReader(System.in));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-        // Thread to handle sending messages to the server
-        Thread sendThread = new Thread(() -> {
-            try {
-                Scanner sc = new Scanner(System.in);
-                while (true) {
-                    String msg = sc.nextLine();
-                    byte[] buf = msg.getBytes();
-                    DatagramPacket DpSend = new DatagramPacket(buf, buf.length, ip, 1234);
-                    ds.send(DpSend);
-
-                    if (msg.equals("bye")) {
-                        ds.close();
-                        sc.close();
-                        break;
-                    }
+    public void run() {
+        try {
+            while (true) {
+                if (Thread.currentThread()==t1) {
+                    dp = new DatagramPacket(rec, rec.length);
+                    client.receive(dp);
+                    
+                    
+                    str = new String(rec);
+                    System.out.println("From server: " + str);
+                } else {
+                    a = br.readLine();
+                    send = a.getBytes();
+                    dp = new DatagramPacket(send, send.length, ip, 5555);
+                    client.send(dp);
                 }
-            } catch (IOException e) {
-                System.out.println("Error in sending: " + e.getMessage());
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-        // Thread to handle receiving messages from the server
-        Thread receiveThread = new Thread(() -> {
-            try {
-                while (true) {
-                    byte[] receive = new byte[65535];
-                    DatagramPacket DpReceive = new DatagramPacket(receive, receive.length);
-                    ds.receive(DpReceive);
-                    String serverMsg = new String(DpReceive.getData(), 0, DpReceive.getLength());
-
-                    System.out.println("Server: " + serverMsg);
-
-                    if (serverMsg.equals("bye")) {
-                        ds.close();
-                        break;
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("Error in receiving: " + e.getMessage());
-            }
-        });
-
-        sendThread.start();
-        receiveThread.start();
+    public static void main(String[] args) {
+        Client c = new Client();
+        c.t1 = new Thread(c, "Receiver");
+        c.t2 = new Thread(c, "Sender");
+        c.t1.start();
+        c.t2.start();
     }
 }
