@@ -2,38 +2,32 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-class Sender {
-    public static void main(String args[]) throws Exception {
-        Sender sws = new Sender();
-        sws.run();
+class Sender{
+    public static void main(String []args) throws Exception{
+        Sender s=new Sender();
+        s.run();
     }
-
-    public void run() throws Exception {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter number of frames to be sent:");
-        int n = sc.nextInt();
-
-        Socket myskt = new Socket("localhost", 9999);
-        PrintStream myps = new PrintStream(myskt.getOutputStream());
-
-        for (int i = 0; i <= n;) {
-            if (i == n) {
-                myps.println("exit");
+    public void run() throws Exception{
+        Scanner sc=new Scanner(System.in);
+        Socket client=new Socket("localhost",5555);
+        BufferedReader br =new BufferedReader(new InputStreamReader(client.getInputStream()));
+        PrintStream p=new PrintStream(client.getOutputStream());
+        System.out.println("enter the no.of frames:");
+        int n=sc.nextInt();
+        for(int i=0;i<=n;){
+            if(i==n){
+                p.println("exit");
                 break;
             }
-
-            System.out.println("Frame no " + i + " is sent");
-            myps.println(i);
-
-            BufferedReader bf = new BufferedReader(new InputStreamReader(myskt.getInputStream()));
-            String ack = bf.readLine();
-
-            if (ack != null) {
-                System.out.println("Acknowledgement was received from receiver");
+            System.out.println("frame "+i+" was sent");
+            p.println(i);
+            String ack=br.readLine();
+            if(ack!=null){
+                System.out.println(" ack received");
+                Thread.sleep(2000);
                 i++;
-                Thread.sleep(4000);
-            } else {
-                myps.println(i);
+            }else{
+                p.println(i);
             }
         }
     }
