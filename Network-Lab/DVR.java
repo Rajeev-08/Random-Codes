@@ -133,6 +133,6 @@ public class DVR
                 System.out.print("Dist: " + rt[i][j] + "    ");
             }
             System.out.println();
-            }
+        }
     }
 }
