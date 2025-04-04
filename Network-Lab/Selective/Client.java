@@ -16,7 +16,7 @@ public class Client{
             DataInputStream in=new DataInputStream(connection.getInputStream());
             DataOutputStream out=new DataOutputStream(connection.getOutputStream());
             int p=in.read();
-            System.out.println("number of fram is : "+p);
+            System.out.println("number of frame is : "+p);
             for(int i=0;i<p;i++){
                 v[i]=in.read();
                 System.out.println(v[i]);
