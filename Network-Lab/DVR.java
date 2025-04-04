@@ -95,14 +95,14 @@ public class DVR
         int k = 0;
         for(int i = 0; i < 4*v; i++)
         {
-        update_table(k);
+        update(k);
         k++;
         if(k == v)
             k = 0;
         }
     }
 
-    static void update_table(int source)
+    static void update(int source)
     {
         for(int i = 0; i < v; i++)
         {
