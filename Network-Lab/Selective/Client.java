@@ -9,12 +9,9 @@ public class Client{
             int v[]=new int[10];
             Random rand=new Random();
             int rnum=0;
-
-            InetAddress add=InetAddress.getByName("localhost");
-            System.out.println(add);
-            Socket connection=new Socket(add,8011);
-            DataInputStream in=new DataInputStream(connection.getInputStream());
-            DataOutputStream out=new DataOutputStream(connection.getOutputStream());
+            Socket client=new Socket("localhost",8011);
+            DataInputStream in=new DataInputStream(client.getInputStream());
+            DataOutputStream out=new DataOutputStream(client.getOutputStream());
             int p=in.read();
             System.out.println("number of frame is : "+p);
             for(int i=0;i<p;i++){
