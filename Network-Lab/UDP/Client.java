@@ -9,16 +9,14 @@ public class Client extends Thread {
     byte[] send = new byte[1024];
     byte[] rec = new byte[1024];
     InetAddress ip;
-    String str, a;
+    String a,b;
 
     Client() {
         try {
             client = new DatagramSocket();
             ip = InetAddress.getLocalHost();
             br = new BufferedReader(new InputStreamReader(System.in));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
     }
 
     public void run() {
@@ -27,26 +25,22 @@ public class Client extends Thread {
                 if (Thread.currentThread()==t1) {
                     dp = new DatagramPacket(rec, rec.length);
                     client.receive(dp);
-                    
-                    
-                    str = new String(rec);
-                    System.out.println("From server: " + str);
+                    a = new String(rec);
+                    System.out.println("From server: " +a);
                 } else {
-                    a = br.readLine();
-                    send = a.getBytes();
+                    b = br.readLine();
+                    send = b.getBytes();
                     dp = new DatagramPacket(send, send.length, ip, 5555);
                     client.send(dp);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
     }
 
     public static void main(String[] args) {
         Client c = new Client();
-        c.t1 = new Thread(c, "Receiver");
-        c.t2 = new Thread(c, "Sender");
+        c.t1 = new Thread(c);
+        c.t2 = new Thread(c);
         c.t1.start();
         c.t2.start();
     }
