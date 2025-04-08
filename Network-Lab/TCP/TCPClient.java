@@ -11,7 +11,7 @@ public class TCPClient extends Thread{
 
     TCPClient(){
         try{
-         client=new Socket("127.0.0.1",5555);
+         client=new Socket("localhost",5555);
         br1=new BufferedReader(new InputStreamReader(System.in));
          br2=new BufferedReader(new InputStreamReader(client.getInputStream()));
          p=new PrintWriter(client.getOutputStream(),true);
