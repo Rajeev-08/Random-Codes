@@ -7,17 +7,15 @@ public class Server extends Thread{
     byte []send=new byte[1024];
     DatagramSocket server;
     DatagramPacket dp;
-    public static InetAddress ip;
-    public static int port;
-    String str,a;
+    InetAddress ip;
+    int port;
+    String a,b;
 
     Server(){
         try{
         server =new DatagramSocket(5555);
         br=new BufferedReader(new InputStreamReader(System.in));
-    }catch(Exception e){
-
-    }
+    }catch(Exception e){ }
 }
 
 public void run(){
@@ -28,11 +26,11 @@ public void run(){
                 server.receive(dp);
                 ip=dp.getAddress();
                 port=dp.getPort();
-                str=new String(rec);
-                System.out.println("form client :"+str);
+                a=new String(rec);
+                System.out.println("form client :"+a);
             }else{
-                a=br.readLine();
-                send=a.getBytes();
+                b=br.readLine();
+                send=b.getBytes();
                 dp=new DatagramPacket(send,send.length,ip,port);
                 server.send(dp);
             }
