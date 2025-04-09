@@ -21,7 +21,7 @@ public class Client{
             System.out.println("Received Frame is :"+v[i]);
         }
 
-        System.out.println("Requesting to retransmint the frame at index "+r+" Again...");
+        System.out.println("Requesting to retransmit Packet No. "+r+" Again...");
         dos.write(r);
         dos.flush();
         v[r]=dis.read();
