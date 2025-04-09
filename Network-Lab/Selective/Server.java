@@ -1,19 +1,18 @@
 import java.io.*;
 import java.net.*;
 public class Server{
-    public static void main(String[]args){
-        try{
+    public static void main(String[]args) throws Exception{
         int a[]={30,40,50,60,70,80,90,100};
-        ServerSocket server=new ServerSocket(8011);
-        System.out.println("waiting for connection..");
+        ServerSocket server=new ServerSocket(5555);
+        System.out.println("Waiting for connection...");
         Socket client=server.accept();
         DataInputStream dis=new DataInputStream(client.getInputStream());
         DataOutputStream dos=new DataOutputStream(client.getOutputStream());
-        System.out.println("the number of packet sent is :"+a.length);
-        int y=a.length;
-        dos.write(y);
+        int n=a.length;
+        System.out.println("No.of packets sent is : "+n);
+        dos.write(n);
         dos.flush();
-        for (int i=0;i<y;i++){
+        for(int i=0;i<n;i++){
             dos.write(a[i]);
             dos.flush();
         }
@@ -21,7 +20,5 @@ public class Server{
         dos.write(a[k]);
         dos.flush();
 
-
-    }catch(Exception e){}
-}
+    }
 }
