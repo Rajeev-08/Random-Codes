@@ -1,29 +1,29 @@
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
+public class Sender{
+    public static void main(String[]args)throws Exception{
 
-class Sender{
-    public static void main(String []args) throws Exception{
-        Sender s=new Sender();
-        s.run();
-    }
-    public void run() throws Exception{
-        Scanner sc=new Scanner(System.in);
         Socket client=new Socket("localhost",5555);
-        BufferedReader br =new BufferedReader(new InputStreamReader(client.getInputStream()));
+        BufferedReader br=new BufferedReader(new InputStreamReader(client.getInputStream()));
         PrintStream p=new PrintStream(client.getOutputStream());
-        System.out.println("enter the no.of frames:");
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the No.of Frames :");
         int n=sc.nextInt();
+        sc.close();
+
         for(int i=0;i<=n;){
             if(i==n){
                 p.println("exit");
                 break;
             }
-            System.out.println("frame "+i+" was sent");
+
             p.println(i);
+            System.out.println("Frame "+i+" is sent");
             String ack=br.readLine();
+            
             if(ack!=null){
-                System.out.println(" ack received");
+                System.out.println("ACK is recived");
                 Thread.sleep(2000);
                 i++;
             }else{
