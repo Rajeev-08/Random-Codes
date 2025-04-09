@@ -1,42 +1,33 @@
 import java.io.*;
-import java.util.Random;
 import java.net.*;
-import java.lang.System;
+import java.util.Random;
 public class Client{
-    public static void main(String[]args)throws IOException{
-        try{
-            int n=0;
-            int v[]=new int[10];
-            Random rand=new Random();
-            int rnum=0;
-            Socket client=new Socket("localhost",8011);
-            DataInputStream in=new DataInputStream(client.getInputStream());
-            DataOutputStream out=new DataOutputStream(client.getOutputStream());
-            int p=in.read();
-            System.out.println("number of frame is : "+p);
-            for(int i=0;i<p;i++){
-                v[i]=in.read();
-                System.out.println(v[i]);
-            }
-            rnum=rand.nextInt(p);
+    public static void main(String[]args)throws Exception{
+        Socket client=new Socket("localhost",5555);
+        DataInputStream dis=new DataInputStream(client.getInputStream());
+        DataOutputStream dos=new DataOutputStream(client.getOutputStream());
+        int n=dis.read();
+        int v[]=new int[n];
 
-            v[rnum]=-1;
-            for (int i=0;i<p;i++){
-                System.out.println("Received Frame is : "+v[i]);
-            }
-            for(int i=0;i<p;i++){
-                if (v[i]==-1){
-                    System.out.println("Req to retansmit from packet no "+(i+1)+ " again");
-                    n=i;
-                    out.write(n);
-                    out.flush();
-                }
-            }
-            System.out.println();
-            v[n]=in.read();
-            System.out.println("receiver frame is :"+v[n]);
-            System.out.println("quiting..");
+        for(int i=0;i<n;i++){
+            v[i]=dis.read();
+        }
 
-        }catch(Exception e){}
+        Random rand=new Random();
+        int r=rand.nextInt(n);
+        v[r]=-1;
+
+        for(int i=0;i<n;i++){
+            System.out.println("Received Frame is :"+v[i]);
+        }
+
+        System.out.println("Requesting to retransmint the frame at index "+r+" Again...");
+        dos.write(r);
+        dos.flush();
+        v[r]=dis.read();
+
+        System.out.println("Frame "+v[r]+ " is received");
+        System.out.println("Quiting....");
+
     }
 }
