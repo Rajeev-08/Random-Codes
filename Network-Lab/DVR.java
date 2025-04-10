@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-public class Dvr{
+public class DVR{
     static int graph[][],rt[][],via[][],e,v;
     public static void main(String[]args)throws Exception{
         Scanner sc=new Scanner(System.in);
