@@ -50,3 +50,14 @@ int main() {
     }
     return 0;
 }
+/* input:
+States: 4
+Symbols: 2
+Transitions (delta(state,sym)):
+1 2
+0 3
+3 0
+2 1
+No. of final states: 2
+Final states: 2 3
+*/
