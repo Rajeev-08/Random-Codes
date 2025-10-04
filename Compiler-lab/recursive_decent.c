@@ -12,7 +12,6 @@ void Tprime();
 void F();
 void match(char expected);
 
-// Match expected character and move to next
 void match(char expected) {
     if (lookahead == expected) {
         printf("Matched '%c'\n", lookahead);
@@ -23,14 +22,12 @@ void match(char expected) {
     }
 }
 
-// E -> T E'
 void E() {
     printf("Apply Rule: E -> T E'\n");
     T();
     Eprime();
 }
 
-// E' -> + T E' | - T E' | ε
 void Eprime() {
     if (lookahead == '+') {
         printf("Apply Rule: E' -> + T E'\n");
@@ -47,14 +44,12 @@ void Eprime() {
     }
 }
 
-// T -> F T'
 void T() {
     printf("Apply Rule: T -> F T'\n");
     F();
     Tprime();
 }
 
-// T' -> * F T' | / F T' | ε
 void Tprime() {
     if (lookahead == '*') {
         printf("Apply Rule: T' -> * F T'\n");
@@ -71,7 +66,6 @@ void Tprime() {
     }
 }
 
-// F -> ( E ) | number
 void F() {
     if (lookahead == '(') {
         printf("Apply Rule: F -> ( E )\n");
