@@ -58,3 +58,10 @@ int main() {
     yyparse();
     return 0;
 }
+/*
+yacc -d tac.y
+lex tac.l
+gcc y.tab.c lex.yy.c -o tac
+./tac
+
+*/
