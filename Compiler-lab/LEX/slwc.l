@@ -19,7 +19,7 @@ return 1;
 }
 
 /*
-lex slw.l
+lex slwc.l
 gcc lex.yy.c
 ./a.out
 */
