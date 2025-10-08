@@ -6,7 +6,7 @@
 .|\n              {  }
 %%
 int main(){
-yytext();
+yylex();
 return 0;
 }
 int yywrap(){
