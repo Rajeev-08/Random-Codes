@@ -5,6 +5,8 @@ int yyerror(const char *s);
 %}
 
 %token NUMBER
+%left '+' '-'
+%left '*' '/'
 
 %%
 calclist:
