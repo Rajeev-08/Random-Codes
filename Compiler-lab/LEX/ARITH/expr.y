@@ -37,3 +37,11 @@ int main() {
 void yyerror(const char *s) {
     printf("Invalid expression\n");
 }
+
+/*
+yacc -d expr.y
+lex expr.l
+gcc y.tab.c lex.yy.c -o expr
+./expr
+
+*/
