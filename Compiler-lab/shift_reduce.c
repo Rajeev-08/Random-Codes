@@ -15,56 +15,33 @@ void R() {
     int changed;
     do {
         changed = 0;
-        if (t > 2 && s[t-3]=='(' && s[t-2]=='S' && s[t-1]==')') {
+        // Reduction: (E) -> E
+        if (t >= 3 && s[t-3] == '(' && s[t-2] == 'E' && s[t-1] == ')') {
             t -= 3;
-            s[t++] = 'B';
+            s[t++] = 'E';
             changed = 1;
             printStack();
             continue;
         }
-        if (t > 2 && s[t-3]=='{' && s[t-2]=='S' && s[t-1]=='}') {
+        // Reduction: E+E -> E
+        if (t >= 3 && s[t-3] == 'E' && s[t-2] == '+' && s[t-1] == 'E') {
             t -= 3;
-            s[t++] = 'B';
+            s[t++] = 'E';
             changed = 1;
             printStack();
             continue;
         }
-        if (t > 2 && s[t-3]=='[' && s[t-2]=='S' && s[t-1]==']') {
+        // Reduction: E*E -> E
+        if (t >= 3 && s[t-3] == 'E' && s[t-2] == '*' && s[t-1] == 'E') {
             t -= 3;
-            s[t++] = 'B';
+            s[t++] = 'E';
             changed = 1;
             printStack();
             continue;
         }
-        if (t > 1 && s[t-2]=='(' && s[t-1]==')') {
-            t -= 2;
-            s[t++] = 'B';
-            changed = 1;
-            printStack();
-            continue;
-        }
-        if (t > 1 && s[t-2]=='{' && s[t-1]=='}') {
-            t -= 2;
-            s[t++] = 'B';
-            changed = 1;
-            printStack();
-            continue;
-        }
-        if (t > 1 && s[t-2]=='[' && s[t-1]==']') {
-            t -= 2;
-            s[t++] = 'B';
-            changed = 1;
-            printStack();
-            continue;
-        }
-        if (t > 1 && s[t-2]=='S' && s[t-1]=='B') {
-            t--;
-            changed = 1;
-            printStack();
-            continue;
-        }
-        if (t > 0 && s[t-1]=='B') {
-            s[t-1] = 'S';
+        // Reduction: i -> E
+        if (t >= 1 && s[t-1] == 'i') {
+            s[t-1] = 'E';
             changed = 1;
             printStack();
             continue;
@@ -73,25 +50,25 @@ void R() {
 }
 
 int main() {
-    printf("Grammar:\nS->SB | B\nB->(S) | {S} | [S] | () | {} | []\n");
+    printf("Grammar:\n");
+    printf("E -> E+E | E*E | (E) | i\n\n");
+
     printf("Enter input: ");
     if (scanf("%255s", b) != 1) return 0;
+
     while (b[p] != '\0') {
         s[t++] = b[p++];
         printStack();
         R();
     }
+
     R();
-    if (t == 1 && s[0] == 'S') printf("Success\n");
+    if (t == 1 && s[0] == 'E') 
+        printf("Success: Input accepted.\n");
     else {
-        printf("Failed\n");
+        printf("Failed: Invalid expression.\n");
         printStack();
     }
+
     return 0;
 }
-
-Output:
-Grammar:
-S->SB | B
-B->(S) | {S} | [S] | () | {} | []
-Enter input: (){}([])
