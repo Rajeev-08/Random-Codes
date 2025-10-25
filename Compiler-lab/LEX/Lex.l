@@ -3,7 +3,7 @@
 %}
 
 /* Patterns */
-PREPROCESSOR   \#[ \t]*include[ \t]*\<[a-zA-Z0-9_.]+\>
+PREPROCESSOR   \#[ \t]*include[ \t]*([<"][a-zA-Z0-9_.]+[>"])
 KEYWORD        int|void|float|char|double|if|else|for|while|return
 IDENTIFIER     [a-zA-Z_][a-zA-Z0-9_]*
 NUMBER         [0-9]+
