@@ -55,3 +55,11 @@ int main() {
     fclose(fp);
     return 0;
 }
+/* input.c
+int main() {
+    int a = 10, b = 20;
+    int c = a + b;
+    return 0;
+}    
+
+*/
