@@ -8,12 +8,7 @@ int yyerror(char *s);
 
 %}
 
-%union {
-    char *str;
-}
-
-// Tokens
-%token <str> ID
+%token ID
 %token DO WHILE
 %token REL_OP    // relational operators: <, >, <=, >=, ==, !=
 %token SEMI      // ;
