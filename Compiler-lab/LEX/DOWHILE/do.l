@@ -1,5 +1,5 @@
 %{
-#include "do.tab.h"
+#include "y.tab.h"
 #include <string.h>
 %}
 
@@ -22,7 +22,7 @@
 "{"         { return LBRACE; }
 "}"         { return RBRACE; }
 
-tors
+
 "<="        { return REL_OP; }
 ">="        { return REL_OP; }
 "=="        { return REL_OP; }
@@ -31,7 +31,7 @@ tors
 ">"         { return REL_OP; }
 
 
-[a-zA-Z_][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return ID; }
+[a-zA-Z_][a-zA-Z0-9_]* { return ID; }
 
 [ \t\n]+    ;
 
