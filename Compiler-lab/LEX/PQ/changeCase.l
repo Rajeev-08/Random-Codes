@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <ctype.h>
+FILE *fp;
 %}
 
 %%
@@ -12,18 +13,10 @@
 
 int yywrap() { return 1; }
 
-int main(int argc, char *argv[]) {
-    FILE *fp;
-    if (argc > 1) {
-        fp = fopen(argv[1], "r");
-        if (!fp) {
-            printf("Cannot open file %s\n", argv[1]);
-            return 1;
-        }
+int main() {
+  fp = fopen("input.txt", "r");
         yyin = fp;
-    }
-
-    yylex();   // process input
-    if (argc > 1) fclose(fp);
+    yylex();   
+    fclose(fp);
     return 0;
 }
