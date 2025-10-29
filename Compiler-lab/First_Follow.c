@@ -4,7 +4,7 @@
 
 #define MAX 10
 
-char prod[MAX][MAX];  // Productions
+char prod[MAX][MAX];  
 int n;                // Number of productions
 
 // Function declarations
