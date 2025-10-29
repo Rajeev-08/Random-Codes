@@ -94,3 +94,11 @@ int main() {
 
     return 0;
 }
+/*
+3
+S=AB
+A=a
+B=b
+S
+
+*/
