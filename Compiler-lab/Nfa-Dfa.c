@@ -96,3 +96,24 @@ void main() {
         printf("}\n");
     }
 }
+/*
+Enter number of NFA states (max 31): 3
+Enter number of symbols (max 10): 2
+Enter symbols: a b
+
+How many NFA final states? 1
+Enter the final state(s): 2
+
+Enter NFA transitions:
+d(q0, a) -> No. of states: 2
+Enter state(s): 0 1
+d(q0, b) -> No. of states: 0
+
+d(q1, a) -> No. of states: 0
+d(q1, b) -> No. of states: 1
+Enter state(s): 2
+
+d(q2, a) -> No. of states: 0
+d(q2, b) -> No. of states: 0
+
+*/
