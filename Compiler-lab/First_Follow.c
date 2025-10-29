@@ -8,12 +8,12 @@ int n;
 char prod[MAX][MAX];
 char first[20],follow[20];
 
-int isNontermianl(char c){
+int isNonterminal(char c){
     return (c>='A'&&c<='Z');
 }
 
 void findfirst(char c){
-    if(!isNontermianl(c)){
+    if(!isNonterminal(c)){
         if(!strchr(first,c))
             strncat(first,&c,1);
     }
@@ -23,7 +23,7 @@ void findfirst(char c){
             if(prod[i][2]=='#'){
                 if(!strchr(first,'#'))
                     strncat(first,"#",1);
-            }else if(!isNontermianl(prod[i][2])){
+            }else if(!isNonterminal(prod[i][2])){
                 if(!strchr(first,prod[i][2]))
                     strncat(first,&prod[i][2],1);
             }else{
