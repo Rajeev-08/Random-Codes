@@ -1,27 +1,25 @@
 %{
 #include "y.tab.h"
 #include <string.h>
-
 %}
 
 %%
-"Name"          { return NAME; }
-"Place"         { return PLACE; }
-"Pin"           { return PIN; }
-"Phone"         { return PHONE; }
+"Name"              { return NAME; }
+"Place"             { return PLACE; }
+"Pin"               { return PIN; }
+"Phone"             { return PHONE; }
+":"                 { return COLON; }
 
-":"             { return COLON; }
+[1-9][0-9]{5}       { yylval.str = strdup(yytext); return PINNUM; }     /* valid 6-digit, not starting with 0 */
+0[0-9]{5}           { yylval.str = strdup(yytext); return INVALID; }    /* invalid PIN (starts with 0) */
 
-[a-zA-Z]+       { yylval.str = strdup(yytext); return WORD; }
+0[0-9]{3}-[0-9]{6,7} { yylval.str = strdup(yytext); return PHONE_NUM; } /* stdcode-number format */
 
-[1-9][0-9]{5}   { yylval.str = strdup(yytext); return PINSIX; }   // valid pin: 6 digits, not starting with 0
-0[0-9]{5}       { yylval.str = strdup(yytext); return BADPIN; }   // invalid pin starting with 0
+[A-Za-z][A-Za-z ]*  { yylval.str = strdup(yytext); return STRING; }     /* Name/Place can have letters & spaces */
 
-[0-9]{3,5}-[0-9]{6,8}  { yylval.str = strdup(yytext); return PHONEFORMAT; }  // stdcode-number format
-[0-9]+-[0-9]+          { yylval.str = strdup(yytext); return BADPHONE; }     // wrong length
-
-[ \t\r\n]+      ;   // Ignore whitespace and newlines
-.               { return INVALID; }
+\n                  { return NL; }
+[ \t]+              ;   /* ignore spaces and tabs */
+.                   { return INVALID; }
 %%
 
 int yywrap() { return 1; }
