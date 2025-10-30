@@ -1,7 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-
+#include<string.h>
 int pos_count = 0;
 int neg_count = 0;
 %}
