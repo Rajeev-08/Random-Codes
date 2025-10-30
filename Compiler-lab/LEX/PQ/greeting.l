@@ -11,7 +11,7 @@ int hour, min, sec;
     sscanf(yytext, "%d:%d:%d", &hour, &min, &sec);
     if(hour < 0 || hour > 23) {
         printf("Invalid hour!\n");
-        return;
+        return 0; 
     }
     if(hour >= 0 && hour < 12)
         printf("Good Morning\n");
