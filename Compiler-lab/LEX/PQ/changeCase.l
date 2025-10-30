@@ -3,7 +3,7 @@
 #include <ctype.h>
 FILE *fp;
 %}
-
+%option noyywrap
 %%
 
 [a-z]       { putchar(toupper(yytext[0])); }   // convert lowercase to uppercase
