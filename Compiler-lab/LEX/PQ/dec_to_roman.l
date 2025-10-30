@@ -32,8 +32,8 @@ void toRoman(int num, char *result) {
     printf("%d : %s\n", num, roman);
     
 }
-[ \t\n]+   
-.          
+[ \t\n]+   ;
+.          ;
 %%
 
 int main() {
